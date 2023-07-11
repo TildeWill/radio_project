@@ -2,10 +2,13 @@
 #include "FMRadio.h"
 #include "Logger.h" 
 
-FMRadio::FMRadio(MomentaryButton seekBack, MomentaryButton playPause, MomentaryButton seekForward, Logger* logger) {
+FMRadio::FMRadio(MomentaryButton* seekBack, MomentaryButton* playPause, MomentaryButton* seekForward, Logger* logger):
+  _seekBack(seekBack), _playPause(playPause), _seekForward(seekForward), _logger(logger) {
 
 }
 
 void FMRadio::checkButtons() {
-
+  _seekBack->checkButton();
+  _playPause->checkButton();
+  _seekForward->checkButton();
 }

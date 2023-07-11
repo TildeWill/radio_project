@@ -6,9 +6,12 @@
 
 class FMRadio {
 public:
-  FMRadio(MomentaryButton seekBack, MomentaryButton playPause, MomentaryButton seekForward, Logger* logger);
+  FMRadio(MomentaryButton* seekBack, MomentaryButton* playPause, MomentaryButton* seekForward, Logger* logger);
   void checkButtons();
 private:
   Logger* _logger;
+  MomentaryButton* _seekBack;
+  MomentaryButton* _playPause;
+  MomentaryButton* _seekForward;
 };
 #endif
