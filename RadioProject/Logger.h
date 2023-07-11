@@ -5,7 +5,8 @@ class Logger {
 public:
   Logger(void *outputFunction);
   void debug(String s);
+  void log(String s);
 private:
-  void (*_outputFunction)(String);
+  void (*_outputFunction)(String s);
 };
 #endif

@@ -8,3 +8,7 @@ Logger::Logger(void *outputFunction) {
 void Logger::debug(String s){
   _outputFunction(s);
 }
+
+void Logger::log(String s){
+  _outputFunction(s);
+}

@@ -2,14 +2,15 @@
 #include "MomentaryButton.h"
 #include "Logger.h" 
 
-MomentaryButton::MomentaryButton(int pin, void *pressedCallback) {
+MomentaryButton::MomentaryButton(int pin, void *pressedCallback, Logger* logger):
+  _logger(logger)
+ {
 	pinMode(pin, INPUT);
 	_pin = pin;
   _pressedCallback = pressedCallback;
   _lastButtonState = LOW;
   _debounceDuration = 50;
   _lastTimeButtonStateChanged = 0;
-  // _logger = logger;
 }
 void MomentaryButton::checkButton(){
   if (millis() - _lastTimeButtonStateChanged > _debounceDuration) {
@@ -19,7 +20,7 @@ void MomentaryButton::checkButton(){
       _lastButtonState = buttonState;
       if (buttonState == HIGH) {
         // do an action, for example print on Serial
-        Serial.println("Button pressed");
+        _logger->debug("Button pressed");
         _pressedCallback();
       }
     }
