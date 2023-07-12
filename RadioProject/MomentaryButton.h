@@ -4,7 +4,9 @@
 #include "Logger.h" 
 class MomentaryButton {
 public:
-  MomentaryButton(int pin, void *pressedCallback, Logger* logger);
+  MomentaryButton();
+  MomentaryButton(int pin, void *pressedCallback, Logger &logger);
+  
   void checkButton();
 private:
   int _pin;
@@ -12,6 +14,6 @@ private:
   unsigned long _debounceDuration; // millis
   unsigned long _lastTimeButtonStateChanged;
   void (*_pressedCallback)(void);
-  Logger* _logger;
+  Logger _logger;
 };
 #endif

@@ -3,7 +3,9 @@
 #include "Arduino.h" 
 class Logger {
 public:
+  Logger();
   Logger(void *outputFunction);
+  
   void debug(String s);
   void log(String s);
 private:
