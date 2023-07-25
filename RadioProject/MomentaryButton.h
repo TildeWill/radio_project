@@ -5,7 +5,7 @@
 class MomentaryButton {
 public:
   MomentaryButton();
-  MomentaryButton(int pin, void *pressedCallback, Logger &logger);
+  MomentaryButton(int pin, void (*pressedCallback)(void), Logger &logger);
   
   void checkButton();
 private:

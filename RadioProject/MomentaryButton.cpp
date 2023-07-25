@@ -3,7 +3,7 @@
 #include "Logger.h" 
 
 MomentaryButton::MomentaryButton() {}
-MomentaryButton::MomentaryButton(int pin, void *pressedCallback, Logger &logger):
+MomentaryButton::MomentaryButton(int pin, void (*pressedCallback)(void), Logger &logger):
   _logger(logger)
  {
 	pinMode(pin, INPUT);

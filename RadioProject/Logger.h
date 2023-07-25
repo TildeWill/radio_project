@@ -4,7 +4,7 @@
 class Logger {
 public:
   Logger();
-  Logger(void *outputFunction);
+  Logger(void (*outputFunction)(String s));
   
   void debug(String s);
   void log(String s);

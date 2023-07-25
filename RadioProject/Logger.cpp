@@ -3,7 +3,7 @@
 
 Logger::Logger() { }
 
-Logger::Logger(void *outputFunction) {
+Logger::Logger(void (*outputFunction)(String s)) {
   _outputFunction = outputFunction;
 }
 
