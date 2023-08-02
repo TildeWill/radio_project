@@ -19,7 +19,7 @@ Upload speed seems to have to be 115200 or slower
 #include "FMRadio.h"
 #include "BluetoothReceiver.h"
 #include "Screen.h"
-#include "EagleEyeJPG.h"
+#include "AlbumImage.h"
 
 
 Receiver* receiver;
@@ -57,7 +57,7 @@ void setup() {
 void loop() {
   
   if(millis() >= albumGoTime) {
-    screen.drawJpeg(EagleEye, sizeof(EagleEye), 0, 0);
+    screen.drawJpeg(AlbumImage, sizeof(AlbumImage), 0, 0);
     albumGoTime = millis() + albumDelay; 
   }
 
