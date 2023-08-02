@@ -3,12 +3,14 @@
 #include "Arduino.h" 
 #include "Logger.h" 
 #include "MomentaryButton.h" 
+#include "Receiver.h"
 
-class FMRadio {
+class FMRadio: public Receiver {
 public:
   FMRadio();
   FMRadio(MomentaryButton &seekBack, MomentaryButton &playPause, MomentaryButton &seekForward, Logger &logger);
   void checkButtons();
+  String getCurrentSong();
 private:
   Logger _logger;
   MomentaryButton _seekBack;
