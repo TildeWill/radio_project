@@ -15,17 +15,17 @@ Reference: https://github.com/Xinyuan-LilyGO/T-Display-S3/issues/111
 #include "Logger.h"
 #include "Receiver.h"
 #include "FMRadio.h"
-// #include "BluetoothReceiver.h"
+#include "BluetoothReceiver.h"
 #include "Screen.h"
 #include "EagleEyeJPG.h"
-#include "BluetoothA2DPSink.h"
+// #include "BluetoothA2DPSink.h"
 
 Receiver* receiver;
 FMRadio fmRadio;
-// BluetoothReceiver bluetoothReceiver;
+BluetoothReceiver bluetoothReceiver;
 Logger logger;
 Screen screen;
-BluetoothA2DPSink a2dp_sink;
+// BluetoothA2DPSink a2dp_sink;
 
 void setup() {
   Serial.begin(9600); // initialize serial communication at 9600 bits per second:
@@ -35,19 +35,19 @@ void setup() {
   MomentaryButton button2(3, &callTheCallback, logger);
   MomentaryButton button3(4, &callTheCallback, logger);
 
-  fmRadio = FMRadio(button1, button2, button3, logger);
-  // bluetoothReceiver = BluetoothReceiver(button1, button2, button3, logger);
-  receiver = &fmRadio;
-
   screen = Screen();
   screen.begin();
 
-  a2dp_sink.start("JohnsonRadio2");
+  fmRadio = FMRadio(button1, button2, button3, logger);
+  bluetoothReceiver = BluetoothReceiver(button1, button2, button3, logger);
+  receiver = &fmRadio;
+
+  // a2dp_sink.start("JohnsonRadio2");
 }
 
 void loop() {
   screen.drawJpeg(EagleEye, sizeof(EagleEye), 0, 0);
-  // receiver->checkButtons();
+  receiver->checkButtons();
   delay(100);        // delay in between reads for stability
 }
 
