@@ -10,9 +10,10 @@ public:
   void begin();
   void drawJpeg(const uint8_t arrayname[], uint32_t array_size, int xpos, int ypos);
 private:
+  TFT_eSPI& tft(); 
   void renderJPEG(int xpos, int ypos);
 };
 
-TFT_eSPI& tft(); 
+
 
 #endif

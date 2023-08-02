@@ -3,7 +3,7 @@
 #include "Logger.h"
 #include "BluetoothA2DPSink.h"
 
-BluetoothA2DPSink& a2dp_sink() {           // add definition of the free function
+BluetoothA2DPSink& BluetoothReceiver::a2dp_sink() {           // add definition of the free function
     static BluetoothA2DPSink instance;
     return instance;
 }

@@ -17,7 +17,7 @@ void Screen::begin() {
   tft().fillScreen(TFT_BLACK);
 }
 
-TFT_eSPI& tft() {           // add definition of the free function
+TFT_eSPI& Screen::tft() {           // add definition of the free function
     static TFT_eSPI instance;
     return instance;
 }

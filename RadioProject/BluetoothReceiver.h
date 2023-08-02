@@ -17,8 +17,9 @@ private:
   MomentaryButton _seekBack;
   MomentaryButton _playPause;
   MomentaryButton _seekForward;
+  BluetoothA2DPSink& a2dp_sink(); 
 };
 
-BluetoothA2DPSink& a2dp_sink(); 
+
 
 #endif

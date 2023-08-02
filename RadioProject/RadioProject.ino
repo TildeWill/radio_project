@@ -1,6 +1,6 @@
 /*
-NOTE: To upload code:
-1. Connect the board via the USB cable
+To upload code when the serial port is busy and the port is flip-flopping between being available and not:
+1. Connect the board via the USB cable (no need to disconnect and reconnect)
 2. Press and hold the BOOT button (white, left of the USB port), 
 3. While still pressing the BOOT button, press RST (side, black button)
 4. Release the RST
@@ -9,6 +9,8 @@ NOTE: To upload code:
 7. Upload your sketch
 
 Reference: https://github.com/Xinyuan-LilyGO/T-Display-S3/issues/111
+
+Upload speed seems to have to be 115200 or slower
 */
 
 #include "MomentaryButton.h"
@@ -18,14 +20,13 @@ Reference: https://github.com/Xinyuan-LilyGO/T-Display-S3/issues/111
 #include "BluetoothReceiver.h"
 #include "Screen.h"
 #include "EagleEyeJPG.h"
-// #include "BluetoothA2DPSink.h"
+
 
 Receiver* receiver;
 FMRadio fmRadio;
 BluetoothReceiver bluetoothReceiver;
 Logger logger;
 Screen screen;
-// BluetoothA2DPSink a2dp_sink;
 
 void setup() {
   Serial.begin(9600); // initialize serial communication at 9600 bits per second:
@@ -41,8 +42,6 @@ void setup() {
   fmRadio = FMRadio(button1, button2, button3, logger);
   bluetoothReceiver = BluetoothReceiver(button1, button2, button3, logger);
   receiver = &fmRadio;
-
-  // a2dp_sink.start("JohnsonRadio2");
 }
 
 void loop() {
