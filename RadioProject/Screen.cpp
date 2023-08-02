@@ -11,10 +11,14 @@
 Screen::Screen() { 
 }
 
+void Screen::wipeScreen() {
+  tft().fillScreen(TFT_BLACK);
+}
+
 void Screen::begin() {
   tft().begin();
   tft().setRotation(0);  // portrait
-  tft().fillScreen(TFT_BLACK);
+  wipeScreen();
 }
 
 TFT_eSPI& Screen::tft() {           // add definition of the free function

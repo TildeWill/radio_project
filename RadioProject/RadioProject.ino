@@ -28,8 +28,18 @@ BluetoothReceiver bluetoothReceiver;
 Logger logger;
 Screen screen;
 
+int albumDelay = 1000; //1 second
+long int albumGoTime;
+
+int buttonDelay = 100; //1 second
+long int buttonGoTime;
+
 void setup() {
   Serial.begin(9600); // initialize serial communication at 9600 bits per second:
+  
+  albumGoTime = millis();
+  buttonGoTime = millis();
+
   logger = Logger(&outputFunction);
   
   MomentaryButton button1(2, &callTheCallback, logger);
@@ -45,9 +55,16 @@ void setup() {
 }
 
 void loop() {
-  screen.drawJpeg(EagleEye, sizeof(EagleEye), 0, 0);
-  receiver->checkButtons();
-  delay(100);        // delay in between reads for stability
+  
+  if(millis() >= albumGoTime) {
+    screen.drawJpeg(EagleEye, sizeof(EagleEye), 0, 0);
+    albumGoTime = millis() + albumDelay; 
+  }
+
+  if(millis() >= buttonGoTime) {
+    receiver->checkButtons();
+    buttonGoTime = millis() + buttonDelay; 
+  }
 }
 
 void outputFunction(String s) {
