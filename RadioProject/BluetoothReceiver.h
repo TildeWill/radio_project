@@ -9,7 +9,7 @@
 class BluetoothReceiver: public Receiver {
 public:
   BluetoothReceiver();
-  BluetoothReceiver(MomentaryButton &seekBack, MomentaryButton &playPause, MomentaryButton &seekForward, Logger &logger);
+  BluetoothReceiver(MomentaryButton &seekBack, MomentaryButton &playPause, MomentaryButton &seekForward, Logger &logger, void(*avrc_metadata_callback)(uint8_t, const uint8_t*));
   void checkButtons();
   String getCurrentSong();
 private:
@@ -18,6 +18,7 @@ private:
   MomentaryButton _playPause;
   MomentaryButton _seekForward;
   BluetoothA2DPSink& a2dp_sink(); 
+  void(*avrc_metadata_callback)(uint8_t, const uint8_t*);
 };
 
 

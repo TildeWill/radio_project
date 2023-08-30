@@ -9,8 +9,9 @@ BluetoothA2DPSink& BluetoothReceiver::a2dp_sink() {           // add definition 
 }
 
 BluetoothReceiver::BluetoothReceiver() {}
-BluetoothReceiver::BluetoothReceiver(MomentaryButton &seekBack, MomentaryButton &playPause, MomentaryButton &seekForward, Logger &logger)
-  : _seekBack(seekBack), _playPause(playPause), _seekForward(seekForward), _logger(logger) {
+BluetoothReceiver::BluetoothReceiver(MomentaryButton &seekBack, MomentaryButton &playPause, MomentaryButton &seekForward, Logger &logger, void(*avrc_metadata_callback)(uint8_t, const uint8_t*))
+  : _seekBack(seekBack), _playPause(playPause), _seekForward(seekForward), _logger(logger), avrc_metadata_callback(avrc_metadata_callback) {
+    a2dp_sink().set_avrc_metadata_callback(avrc_metadata_callback);
     a2dp_sink().start("JohnsonRadio2");
 }
 

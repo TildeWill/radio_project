@@ -45,6 +45,14 @@ long int buttonGoTime;
 int scrollDelay = 10; 
 long int titleScrollTime;
 
+void avrc_metadata_callback(uint8_t attributeId, const uint8_t* buffer) {
+  Serial.printf("AVRC metadata rsp: attribute id 0x%x, %s\n", attributeId, buffer);
+  if(attributeId == ESP_AVRC_MD_ATTR_TITLE) {
+    String str = (char*)buffer;
+    screen.setTitle((String)str);
+  }
+}
+
 void setup() {
   Serial.begin(9600); // initialize serial communication at 9600 bits per second:
   
@@ -61,9 +69,9 @@ void setup() {
   screen.begin();
 
   fmRadio = FMRadio(button1, button2, button3, logger);
-  bluetoothReceiver = BluetoothReceiver(button1, button2, button3, logger);
+  bluetoothReceiver = BluetoothReceiver(button1, button2, button3, logger, avrc_metadata_callback);
   receiver = &fmRadio;
-  screen.setTitle("Twenty Two - Taylor Swift");
+  // screen.setTitle("Twenty Two - Taylor Swift");
   screen.debug("(Skip)");
 }
 
