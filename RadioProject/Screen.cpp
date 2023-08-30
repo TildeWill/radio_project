@@ -1,30 +1,27 @@
 #include <JPEGDecoder.h>
-#include "Screen.h"
-#include <SPI.h>
+// #include <SPI.h>
 #include <TFT_eSPI.h>
+
+#include "Screen.h"
 
 // Return the minimum of two values a and b
 #define minimum(a,b)     (((a) < (b)) ? (a) : (b))
 
-//----------------------------------------------------------------------------------------------------
-
-Screen::Screen() { 
-}
+Screen::Screen(TFT_eSPI* tft, TFT_eSprite* sprite) : tft(tft), sprite(sprite) {}
 
 void Screen::wipeScreen() {
-  tft().fillScreen(TFT_BLACK);
+  tft->fillScreen(TFT_BLACK);
+  tft->setSwapBytes(true);
 }
 
 void Screen::begin() {
-  tft().begin();
-  tft().setRotation(0);  // portrait
+  tft->init();
+  tft->setRotation(0);  // portrait
   wipeScreen();
+  
+  scrollCounter = 0;
 }
 
-TFT_eSPI& Screen::tft() {           // add definition of the free function
-    static TFT_eSPI instance;
-    return instance;
-}
 
 //####################################################################################################
 // Draw a JPEG on the TFT pulled from a program memory array
@@ -107,13 +104,51 @@ void Screen::renderJPEG(int xpos, int ypos) {
     }
 
     // draw image MCU block only if it will fit on the screen
-    if (( mcu_x + win_w ) <= tft().width() && ( mcu_y + win_h ) <= tft().height())
+    if (( mcu_x + win_w ) <= tft->width() && ( mcu_y + win_h ) <= tft->height())
     {
-      tft().pushRect(mcu_x, mcu_y, win_w, win_h, pImg);
+      tft->pushRect(mcu_x, mcu_y, win_w, win_h, pImg);
     }
-    else if ( (mcu_y + win_h) >= tft().height()) JpegDec.abort(); // Image has run off bottom of screen so abort decoding
+    else if ( (mcu_y + win_h) >= tft->height()) JpegDec.abort(); // Image has run off bottom of screen so abort decoding
   }
 
   // calculate how long it took to draw the image
   drawTime = millis() - drawTime;
+}
+
+void Screen::debug(String message) {
+  tft->setCursor(0,200);
+  tft->setTextSize(2);
+  tft->println(message);
+}
+
+void Screen::setTitle(String title) {
+  this->title = title;
+
+  int titleHeight = 60;
+  int titleFontSizeMultiplier = 2;
+  int titleFontType = 2;
+
+  sprite->setColorDepth(8);
+  sprite->setTextColor(TFT_WHITE); // White text, no background
+  sprite->setTextSize(titleFontSizeMultiplier);
+  sprite->setTextFont(titleFontType);  // sprite.fillSprite(TFT_DARKGREY);
+  
+  int bufferBetweenText = tft->width();
+  spriteWidth = sprite->textWidth(title) + bufferBetweenText;
+  
+  sprite->createSprite(spriteWidth, titleHeight); 
+  sprite->setScrollRect(0, 0, spriteWidth, titleHeight);
+}
+
+void Screen::scrollTitle() {
+  int scrollAmount = -2;
+  sprite->pushSprite(0, 180);
+  sprite->scroll(scrollAmount);
+
+  scrollCounter = scrollCounter - abs(scrollAmount);
+  if (scrollCounter <= 0) {
+    scrollCounter = spriteWidth;
+    
+    sprite->drawString(title, tft->width(), 0); 
+  }
 }
