@@ -1,5 +1,4 @@
 #include <JPEGDecoder.h>
-// #include <SPI.h>
 #include <TFT_eSPI.h>
 
 #include "Screen.h"

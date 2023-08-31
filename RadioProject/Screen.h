@@ -1,7 +1,6 @@
 #ifndef Screen_h
 #define Screen_h
 #include "Arduino.h" 
-// #include <SPI.h>
 #include <TFT_eSPI.h>
 
 class Screen {
