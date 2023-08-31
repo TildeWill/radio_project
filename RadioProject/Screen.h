@@ -21,6 +21,10 @@ private:
   int scrollCounter;
   int spriteWidth;
   int scrollAmount;
+  int titleHeight;
+  int titleFontSizeMultiplier;
+  int titleFontType;
+  int bufferBetweenText;
 };
 
 

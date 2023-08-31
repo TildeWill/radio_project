@@ -19,6 +19,15 @@ void Screen::begin() {
   wipeScreen();
   
   scrollCounter = 0;
+  titleHeight = 32;
+  titleFontSizeMultiplier = 2;
+  titleFontType = 2;
+  bufferBetweenText = tft->width();
+
+  sprite->setColorDepth(1);
+  sprite->setTextColor(TFT_WHITE);
+  sprite->setTextSize(titleFontSizeMultiplier);
+  sprite->setTextFont(titleFontType);
 }
 
 
@@ -116,32 +125,29 @@ void Screen::debug(String message) {
 
 void Screen::setTitle(String title) {
   this->title = title;
-
-  int titleHeight = 32;
-  int titleFontSizeMultiplier = 2;
-  int titleFontType = 2;
-
-  sprite->setColorDepth(1);
-  sprite->setTextColor(TFT_WHITE);
-  sprite->setTextSize(titleFontSizeMultiplier);
-  sprite->setTextFont(titleFontType);
-  
-  int bufferBetweenText = tft->width();
   spriteWidth = sprite->textWidth(title) + bufferBetweenText;
   
+  sprite->deleteSprite(); //delete the old sprite to free up memory
   sprite->createSprite(spriteWidth, titleHeight); 
   sprite->setScrollRect(0, 0, spriteWidth, titleHeight);
+  if(sprite->textWidth(title) <= tft->width()) {
+    int centerOffset = (tft->width() - sprite->textWidth(title))/2;
+    sprite->drawString(title, centerOffset, 0); 
+  }
 }
 
 void Screen::scrollTitle() {
   int scrollAmount = -2;
   sprite->pushSprite(0, 160);
-  sprite->scroll(scrollAmount);
-
-  scrollCounter = scrollCounter - abs(scrollAmount);
-  if (scrollCounter <= 0) {
-    scrollCounter = spriteWidth;
+  
+  if(sprite->textWidth(title) > tft->width()) {
+    sprite->scroll(scrollAmount);
     
-    sprite->drawString(title, tft->width(), 0); 
+    scrollCounter = scrollCounter - abs(scrollAmount);
+    if (scrollCounter <= 0) {
+      scrollCounter = spriteWidth;
+    
+      sprite->drawString(title, tft->width(), 0); 
+    }
   }
 }
