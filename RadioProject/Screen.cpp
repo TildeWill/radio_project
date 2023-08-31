@@ -59,9 +59,6 @@ void Screen::renderJPEG(int xpos, int ypos) {
   uint32_t win_w = mcu_w;
   uint32_t win_h = mcu_h;
 
-  // record the current time so we can measure how long it takes to draw an image
-  uint32_t drawTime = millis();
-
   // save the coordinate of the right and bottom edges to assist image cropping
   // to the screen size
   max_x += xpos;
@@ -109,9 +106,6 @@ void Screen::renderJPEG(int xpos, int ypos) {
     }
     else if ( (mcu_y + win_h) >= tft->height()) JpegDec.abort(); // Image has run off bottom of screen so abort decoding
   }
-
-  // calculate how long it took to draw the image
-  drawTime = millis() - drawTime;
 }
 
 void Screen::debug(String message) {
@@ -123,14 +117,14 @@ void Screen::debug(String message) {
 void Screen::setTitle(String title) {
   this->title = title;
 
-  int titleHeight = 60;
+  int titleHeight = 32;
   int titleFontSizeMultiplier = 2;
   int titleFontType = 2;
 
-  sprite->setColorDepth(8);
-  sprite->setTextColor(TFT_WHITE); // White text, no background
+  sprite->setColorDepth(1);
+  sprite->setTextColor(TFT_WHITE);
   sprite->setTextSize(titleFontSizeMultiplier);
-  sprite->setTextFont(titleFontType);  // sprite.fillSprite(TFT_DARKGREY);
+  sprite->setTextFont(titleFontType);
   
   int bufferBetweenText = tft->width();
   spriteWidth = sprite->textWidth(title) + bufferBetweenText;
@@ -141,7 +135,7 @@ void Screen::setTitle(String title) {
 
 void Screen::scrollTitle() {
   int scrollAmount = -2;
-  sprite->pushSprite(0, 180);
+  sprite->pushSprite(0, 160);
   sprite->scroll(scrollAmount);
 
   scrollCounter = scrollCounter - abs(scrollAmount);
