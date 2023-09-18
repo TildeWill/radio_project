@@ -6,7 +6,7 @@
 
 class Screen {
 public:
-  Screen(TFT_eSPI* tft, TFT_eSprite* sprite);
+  Screen(TFT_eSPI* tft);
   void begin();
   void drawJpeg(const uint8_t arrayname[], uint32_t array_size, int xpos, int ypos);
   void wipeScreen();
@@ -15,7 +15,6 @@ public:
   void debug(String message);
 private:
   TFT_eSPI* tft; 
-  TFT_eSprite* sprite;
   ScrollableSprite* titleSprite;
   void renderJPEG(int xpos, int ypos);
   String title;

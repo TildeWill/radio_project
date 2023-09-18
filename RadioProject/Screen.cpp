@@ -7,7 +7,7 @@
 // Return the minimum of two values a and b
 #define minimum(a,b)     (((a) < (b)) ? (a) : (b))
 
-Screen::Screen(TFT_eSPI* tft, TFT_eSprite* sprite) : tft(tft), sprite(sprite) {}
+Screen::Screen(TFT_eSPI* tft) : tft(tft) {}
 
 void Screen::wipeScreen() {
   tft->fillScreen(TFT_BLACK);

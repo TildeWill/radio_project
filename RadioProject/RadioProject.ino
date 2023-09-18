@@ -33,8 +33,7 @@ BluetoothReceiver bluetoothReceiver;
 Logger logger;
 
 TFT_eSPI tft = TFT_eSPI();
-TFT_eSprite sprite = TFT_eSprite(&tft); 
-Screen  screen = Screen(&tft, &sprite);
+Screen  screen = Screen(&tft);
  
 int albumDelay = 1000; //1 second
 long int albumGoTime;
