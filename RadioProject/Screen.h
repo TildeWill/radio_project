@@ -2,6 +2,7 @@
 #define Screen_h
 #include "Arduino.h" 
 #include <TFT_eSPI.h>
+#include "ScrollableSprite.h"
 
 class Screen {
 public:
@@ -15,6 +16,7 @@ public:
 private:
   TFT_eSPI* tft; 
   TFT_eSprite* sprite;
+  ScrollableSprite titleSprite;
   void renderJPEG(int xpos, int ypos);
   String title;
   

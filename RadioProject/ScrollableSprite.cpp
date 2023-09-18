@@ -2,6 +2,8 @@
 
 #include "ScrollableSprite.h"
 
+ScrollableSprite::ScrollableSprite() {}
+
 ScrollableSprite::ScrollableSprite(TFT_eSprite* sprite, int visibleWidth, int xPosition, int yPosition) : 
   sprite(sprite), visibleWidth(visibleWidth), xPosition(xPosition), yPosition(yPosition) {}
 
