@@ -2,10 +2,8 @@
 
 #include "ScrollableSprite.h"
 
-ScrollableSprite::ScrollableSprite() {}
-
-ScrollableSprite::ScrollableSprite(TFT_eSprite* sprite, int visibleWidth, int xPosition, int yPosition) : 
-  sprite(sprite), visibleWidth(visibleWidth), xPosition(xPosition), yPosition(yPosition) {}
+ScrollableSprite::ScrollableSprite(TFT_eSPI* tft, int visibleWidth, int xPosition, int yPosition) : 
+  TFT_eSprite(tft), visibleWidth(visibleWidth), xPosition(xPosition), yPosition(yPosition) {}
 
 void ScrollableSprite::begin() {
   scrollCounter = 0;
@@ -14,37 +12,37 @@ void ScrollableSprite::begin() {
   fontType = 2;
   bufferBetweenText = visibleWidth;
 
-  sprite->setColorDepth(1);
-  sprite->setTextColor(TFT_WHITE);
-  sprite->setTextSize(fontSizeMultiplier);
-  sprite->setTextFont(fontType);
+  this->setColorDepth(1);
+  this->setTextColor(TFT_WHITE);
+  this->setTextSize(fontSizeMultiplier);
+  this->setTextFont(fontType);
 }
 
 void ScrollableSprite::setText(String text) {
   this->text = text;
-  spriteWidth = sprite->textWidth(text) + bufferBetweenText;
+  spriteWidth = this->textWidth(text) + bufferBetweenText;
   
-  sprite->deleteSprite(); //delete the old sprite to free up memory
-  sprite->createSprite(spriteWidth, textHeight); 
-  sprite->setScrollRect(0, 0, spriteWidth, textHeight);
-  if(sprite->textWidth(text) <= visibleWidth) {
-    int centerOffset = (visibleWidth - sprite->textWidth(text))/2;
-    sprite->drawString(text, centerOffset, 0); 
+  this->deleteSprite(); //delete the old sprite to free up memory
+  this->createSprite(spriteWidth, textHeight); 
+  this->setScrollRect(0, 0, spriteWidth, textHeight);
+  if(this->textWidth(text) <= visibleWidth) {
+    int centerOffset = (visibleWidth - this->textWidth(text))/2;
+    this->drawString(text, centerOffset, 0); 
   }
 }
 
 void ScrollableSprite::scrollText() {
   int scrollAmount = -1;
-  sprite->pushSprite(xPosition, yPosition);
+  this->pushSprite(xPosition, yPosition);
   
-  if(sprite->textWidth(text) > visibleWidth) {
-    sprite->scroll(scrollAmount);
+  if(this->textWidth(text) > visibleWidth) {
+    this->scroll(scrollAmount);
     
     scrollCounter = scrollCounter - abs(scrollAmount);
     if (scrollCounter <= 0) {
       scrollCounter = spriteWidth;
     
-      sprite->drawString(text, visibleWidth, 0); 
+      this->drawString(text, visibleWidth, 0); 
     }
   }
 }

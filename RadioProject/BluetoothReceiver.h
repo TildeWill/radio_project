@@ -11,7 +11,6 @@ public:
   BluetoothReceiver();
   BluetoothReceiver(MomentaryButton &seekBack, MomentaryButton &playPause, MomentaryButton &seekForward, Logger &logger, void(*avrc_metadata_callback)(uint8_t, const uint8_t*));
   void checkButtons();
-  String getCurrentSong();
 private:
   Logger _logger;
   MomentaryButton _seekBack;

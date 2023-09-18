@@ -3,16 +3,15 @@
 #include "Arduino.h" 
 #include <TFT_eSPI.h>
 
-class ScrollableSprite {
+class ScrollableSprite: public TFT_eSprite {
 public:
-  ScrollableSprite();
-  ScrollableSprite(TFT_eSprite* sprite, int visibleWidth, int xPosition, int yPosition);
+  ScrollableSprite(TFT_eSPI* tft, int visibleWidth, int xPosition, int yPosition);
   void begin();
   void setText(String text);
   void scrollText();
   
 private:
-  TFT_eSprite* sprite;
+  TFT_eSPI* tft;
   int visibleWidth;
   String text;
   

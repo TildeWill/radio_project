@@ -19,8 +19,8 @@ void Screen::begin() {
   tft->setRotation(0);  // portrait
   wipeScreen();
 
-  titleSprite = ScrollableSprite(sprite, tft->width(), 0, 160); 
-  titleSprite.begin();
+  titleSprite = new ScrollableSprite(tft, tft->width(), 0, 160); 
+  titleSprite->begin();
 }
 
 
@@ -117,9 +117,9 @@ void Screen::debug(String message) {
 }
 
 void Screen::setTitle(String title) {
-  titleSprite.setText(title);
+  titleSprite->setText(title);
 }
 
 void Screen::scrollTitle() {
-  titleSprite.scrollText();
+  titleSprite->scrollText();
 }

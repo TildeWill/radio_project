@@ -16,7 +16,7 @@ public:
 private:
   TFT_eSPI* tft; 
   TFT_eSprite* sprite;
-  ScrollableSprite titleSprite;
+  ScrollableSprite* titleSprite;
   void renderJPEG(int xpos, int ypos);
   String title;
   
