@@ -71,8 +71,6 @@ void setup() {
   fmRadio = FMRadio(button1, button2, button3, logger);
   bluetoothReceiver = BluetoothReceiver(button1, button2, button3, logger, avrc_metadata_callback);
   receiver = &fmRadio;
-  // screen.setTitle("Twenty Two - Taylor Swift");
-  screen.debug("(Skip)");
 }
 
 void loop() {
