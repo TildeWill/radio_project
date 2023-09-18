@@ -5,10 +5,25 @@
 
 class ScrollableSprite {
 public:
-  ScrollableSprite();
+  ScrollableSprite(TFT_eSprite* sprite, int visibleWidth, int xPosition, int yPosition);
+  void begin();
+  void setText(String text);
+  void scrollText();
   
 private:
+  TFT_eSprite* sprite;
+  int visibleWidth;
+  String text;
   
+  int xPosition;
+  int yPosition;
+  int scrollCounter;
+  int spriteWidth;
+  int scrollAmount;
+  int textHeight;
+  int fontSizeMultiplier;
+  int fontType;
+  int bufferBetweenText;
 };
 
 #endif
