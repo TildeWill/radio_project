@@ -4,9 +4,9 @@
 #include <TFT_eSPI.h>
 #include "ScrollableSprite.h"
 
-class Screen {
+class Screen: public TFT_eSPI {
 public:
-  Screen(TFT_eSPI* tft);
+  Screen();
   void begin();
   void drawJpeg(const uint8_t arrayname[], uint32_t array_size, int xpos, int ypos);
   void wipeScreen();
@@ -14,7 +14,6 @@ public:
   void scrollTitle();
   void debug(String message);
 private:
-  TFT_eSPI* tft; 
   ScrollableSprite* titleSprite;
   void renderJPEG(int xpos, int ypos);
   String title;
@@ -27,7 +26,5 @@ private:
   int titleFontType;
   int bufferBetweenText;
 };
-
-
 
 #endif

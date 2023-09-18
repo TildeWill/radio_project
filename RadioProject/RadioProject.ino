@@ -16,8 +16,6 @@ Reference: https://github.com/Xinyuan-LilyGO/T-Display-S3/issues/111
 
 Upload speed seems to have to be 115200 or slower
 */
-#include <TFT_eSPI.h>
-
 #include "MomentaryButton.h"
 #include "Logger.h"
 #include "Receiver.h"
@@ -31,9 +29,7 @@ Receiver* receiver;
 FMRadio fmRadio;
 BluetoothReceiver bluetoothReceiver;
 Logger logger;
-
-TFT_eSPI tft = TFT_eSPI();
-Screen  screen = Screen(&tft);
+Screen  screen = Screen();
  
 int albumDelay = 1000; //1 second
 long int albumGoTime;

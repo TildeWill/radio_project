@@ -7,19 +7,19 @@
 // Return the minimum of two values a and b
 #define minimum(a,b)     (((a) < (b)) ? (a) : (b))
 
-Screen::Screen(TFT_eSPI* tft) : tft(tft) {}
+Screen::Screen() {}
 
 void Screen::wipeScreen() {
-  tft->fillScreen(TFT_BLACK);
-  tft->setSwapBytes(true);
+  this->fillScreen(TFT_BLACK);
+  this->setSwapBytes(true);
 }
 
 void Screen::begin() {
-  tft->init();
-  tft->setRotation(0);  // portrait
+  this->init();
+  this->setRotation(0);  // portrait
   wipeScreen();
 
-  titleSprite = new ScrollableSprite(tft, tft->width(), 0, 160); 
+  titleSprite = new ScrollableSprite(this, this->width(), 0, 160); 
   titleSprite->begin();
 }
 
@@ -102,18 +102,18 @@ void Screen::renderJPEG(int xpos, int ypos) {
     }
 
     // draw image MCU block only if it will fit on the screen
-    if (( mcu_x + win_w ) <= tft->width() && ( mcu_y + win_h ) <= tft->height())
+    if (( mcu_x + win_w ) <= this->width() && ( mcu_y + win_h ) <= this->height())
     {
-      tft->pushRect(mcu_x, mcu_y, win_w, win_h, pImg);
+      this->pushRect(mcu_x, mcu_y, win_w, win_h, pImg);
     }
-    else if ( (mcu_y + win_h) >= tft->height()) JpegDec.abort(); // Image has run off bottom of screen so abort decoding
+    else if ( (mcu_y + win_h) >= this->height()) JpegDec.abort(); // Image has run off bottom of screen so abort decoding
   }
 }
 
 void Screen::debug(String message) {
-  tft->setCursor(0,200);
-  tft->setTextSize(2);
-  tft->println(message);
+  this->setCursor(0,200);
+  this->setTextSize(2);
+  this->println(message);
 }
 
 void Screen::setTitle(String title) {
