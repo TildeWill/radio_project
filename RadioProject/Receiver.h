@@ -4,7 +4,6 @@
 class Receiver {
    public:
       virtual void checkButtons();
-      virtual String getCurrentSong();
 };
 
 #endif

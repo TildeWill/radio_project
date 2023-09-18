@@ -14,12 +14,13 @@ BluetoothReceiver::BluetoothReceiver(MomentaryButton &seekBack, MomentaryButton 
     a2dp_sink().set_avrc_metadata_callback(avrc_metadata_callback);
     
     // i2s_pin_config_t myPinConfig = {
-    //     .bck_io_num = 26,
-    //     .ws_io_num = 27,
-    //     .data_out_num = 25,
+    //     .bck_io_num = 26, //BCLK
+    //     .ws_io_num = 27,  
+    //     .data_out_num = 25, //DIN
     //     .data_in_num = I2S_PIN_NO_CHANGE
     // };
     // a2dp_sink().set_pin_config(myPinConfig);
+
     const i2s_config_t i2s_config = {
       .mode = (i2s_mode_t) (I2S_MODE_MASTER | I2S_MODE_TX | I2S_MODE_DAC_BUILT_IN),
       .sample_rate = 44100, // corrected by info from bluetooth
@@ -40,10 +41,6 @@ void BluetoothReceiver::checkButtons() {
   _seekBack.checkButton();
   _playPause.checkButton();
   _seekForward.checkButton();
-}
-
-String BluetoothReceiver::getCurrentSong() {
-  return "Bad Blood - Taylor Swift";
 }
 
 

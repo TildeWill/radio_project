@@ -10,7 +10,6 @@ public:
   FMRadio();
   FMRadio(MomentaryButton &seekBack, MomentaryButton &playPause, MomentaryButton &seekForward, Logger &logger);
   void checkButtons();
-  String getCurrentSong();
 private:
   Logger _logger;
   MomentaryButton _seekBack;

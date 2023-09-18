@@ -12,7 +12,3 @@ void FMRadio::checkButtons() {
   _playPause.checkButton();
   _seekForward.checkButton();
 }
-
-String FMRadio::getCurrentSong() {
-  return "Bad Blood - Taylor Swift";
-}
