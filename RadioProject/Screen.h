@@ -12,11 +12,13 @@ public:
   void wipeScreen();
   void setTitle(String title);
   void scrollTitle();
+  void setArtist(String artist);
+  void scrollArtist();
   void debug(String message);
 private:
   ScrollableSprite* titleSprite;
+  ScrollableSprite* artistSprite;
   void renderJPEG(int xpos, int ypos);
-  String title;
   
   int scrollCounter;
   int spriteWidth;

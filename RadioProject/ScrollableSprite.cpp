@@ -2,13 +2,12 @@
 
 #include "ScrollableSprite.h"
 
-ScrollableSprite::ScrollableSprite(TFT_eSPI* tft, int visibleWidth, int xPosition, int yPosition) : 
-  TFT_eSprite(tft), visibleWidth(visibleWidth), xPosition(xPosition), yPosition(yPosition) {}
+ScrollableSprite::ScrollableSprite(TFT_eSPI* tft, int visibleWidth, int xPosition, int yPosition, int fontSizeMultiplier) : 
+  TFT_eSprite(tft), visibleWidth(visibleWidth), xPosition(xPosition), yPosition(yPosition), fontSizeMultiplier(fontSizeMultiplier) {}
 
 void ScrollableSprite::begin() {
   scrollCounter = 0;
-  textHeight = 32;
-  fontSizeMultiplier = 2;
+  textHeight = 16 * fontSizeMultiplier;
   fontType = 2;
   bufferBetweenText = visibleWidth;
 

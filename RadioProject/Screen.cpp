@@ -19,8 +19,10 @@ void Screen::begin() {
   this->setRotation(0);  // portrait
   wipeScreen();
 
-  titleSprite = new ScrollableSprite(this, this->width(), 0, 160); 
+  titleSprite = new ScrollableSprite(this, this->width(), 0, 160, 2); 
   titleSprite->begin();
+  artistSprite = new ScrollableSprite(this, this->width(), 0, 205, 1); 
+  artistSprite->begin();
 }
 
 
@@ -122,4 +124,12 @@ void Screen::setTitle(String title) {
 
 void Screen::scrollTitle() {
   titleSprite->scrollText();
+}
+
+void Screen::setArtist(String artist) {
+  artistSprite->setText(artist);
+}
+
+void Screen::scrollArtist() {
+  artistSprite->scrollText();
 }

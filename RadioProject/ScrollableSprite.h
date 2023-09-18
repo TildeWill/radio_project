@@ -5,7 +5,7 @@
 
 class ScrollableSprite: public TFT_eSprite {
 public:
-  ScrollableSprite(TFT_eSPI* tft, int visibleWidth, int xPosition, int yPosition);
+  ScrollableSprite(TFT_eSPI* tft, int visibleWidth, int xPosition, int yPosition, int fontSizeMultiplier);
   void begin();
   void setText(String text);
   void scrollText();
