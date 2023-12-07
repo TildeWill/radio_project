@@ -3,14 +3,18 @@
 
 Logger::Logger() { }
 
-Logger::Logger(void (*outputFunction)(String s)) {
+Logger::Logger(void (*outputFunction)(const String &s)) {
   _outputFunction = outputFunction;
 }
 
-void Logger::debug(String s){
+void Logger::debug(const String &s){
   _outputFunction("DEBUG: " + s);
 }
 
-void Logger::log(String s){
+void Logger::log(const String &s){
   _outputFunction(s);
+}
+
+void Logger::log(const int &i){
+  _outputFunction(String(i));
 }

@@ -12,3 +12,8 @@ void FMRadio::checkButtons() {
   _playPause.checkButton();
   _seekForward.checkButton();
 }
+
+void FMRadio::volumeUp() {
+  
+}
+void FMRadio::volumeDown() {}

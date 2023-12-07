@@ -22,6 +22,15 @@ void BluetoothReceiver::checkButtons() {
   _seekForward.checkButton();
 }
 
+void BluetoothReceiver::volumeUp() {
+  _logger.log("Current volume:");
+  _logger.log((String)a2dp_sink().get_volume());
+  a2dp_sink().set_volume(a2dp_sink().get_volume()+5);
+}
+void BluetoothReceiver::volumeDown() {
+  a2dp_sink().set_volume(a2dp_sink().get_volume()-5);
+}
+
 
 
 

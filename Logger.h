@@ -4,11 +4,12 @@
 class Logger {
 public:
   Logger();
-  Logger(void (*outputFunction)(String s));
+  Logger(void (*outputFunction)(const String &s));
   
-  void debug(String s);
-  void log(String s);
+  void debug(const String &s);
+  void log(const String &s);
+  void log(const int &i);
 private:
-  void (*_outputFunction)(String s);
+  void (*_outputFunction)(const String &s);
 };
 #endif

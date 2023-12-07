@@ -96,16 +96,25 @@ void loop() {
 
   int newPos = encoder.getPosition();
   if (pos != newPos) {
-    Serial.print("pos:");
-    Serial.print(newPos);
-    Serial.print(" dir:");
-    Serial.println((int)(encoder.getDirection()));
+    logger.log("pos:");
+    logger.log(newPos);
+    logger.log(" dir:");
+    int newDir = (int)(encoder.getDirection());
+    logger.log(newDir);
+    if(newDir > 0) {
+      logger.log("Up");
+      receiver->volumeUp();
+    } else {
+      logger.log("Down");
+      receiver->volumeDown();
+    }
     pos = newPos;
   }
+  delay(10);
 
 }
 
-void outputFunction(String s) {
+void outputFunction(const String &s) {
   Serial.println(s);
 }
 

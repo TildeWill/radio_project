@@ -10,6 +10,8 @@ public:
   FMRadio();
   FMRadio(MomentaryButton &seekBack, MomentaryButton &playPause, MomentaryButton &seekForward, Logger &logger);
   void checkButtons();
+  void volumeUp();
+  void volumeDown();
 private:
   Logger _logger;
   MomentaryButton _seekBack;
