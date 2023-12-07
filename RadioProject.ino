@@ -23,6 +23,7 @@ Upload speed seems to have to be 115200 or slower
 #include "BluetoothReceiver.h"
 #include "Screen.h"
 #include "AlbumImage.h"
+#include <RotaryEncoder.h>
 
 
 Receiver* receiver;
@@ -30,6 +31,7 @@ FMRadio fmRadio;
 BluetoothReceiver bluetoothReceiver;
 Logger logger;
 Screen screen = Screen();
+RotaryEncoder encoder(2, 15, RotaryEncoder::LatchMode::TWO03);
  
 int albumDelay = 1000; //1 second
 long int albumGoTime;
@@ -60,9 +62,9 @@ void setup() {
 
   logger = Logger(&outputFunction);
   
-  MomentaryButton button1(2, &callTheCallback, logger);
-  MomentaryButton button2(3, &callTheCallback, logger);
-  MomentaryButton button3(4, &callTheCallback, logger);
+  MomentaryButton button1(16, &callTheCallback, logger);
+  MomentaryButton button2(16, &callTheCallback, logger);
+  MomentaryButton button3(16, &callTheCallback, logger);
 
   screen.begin();
 
@@ -88,6 +90,19 @@ void loop() {
     screen.scrollArtist();
     scrollTime = millis() + scrollDelay; 
   }
+
+  static int pos = 0;
+  encoder.tick();
+
+  int newPos = encoder.getPosition();
+  if (pos != newPos) {
+    Serial.print("pos:");
+    Serial.print(newPos);
+    Serial.print(" dir:");
+    Serial.println((int)(encoder.getDirection()));
+    pos = newPos;
+  }
+
 }
 
 void outputFunction(String s) {
