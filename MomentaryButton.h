@@ -5,7 +5,7 @@
 class MomentaryButton {
 public:
   MomentaryButton();
-  MomentaryButton(int pin, void (*pressedCallback)(void), Logger &logger);
+  MomentaryButton(int pin, void (*pressedCallback)(void), Print *logger);
   
   void checkButton();
 private:
@@ -14,6 +14,6 @@ private:
   unsigned long _debounceDuration; // millis
   unsigned long _lastTimeButtonStateChanged;
   void (*_pressedCallback)(void);
-  Logger _logger;
+  Print *_logger;
 };
 #endif

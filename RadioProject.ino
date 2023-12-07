@@ -29,7 +29,7 @@ Upload speed seems to have to be 115200 or slower
 Receiver* receiver;
 FMRadio fmRadio;
 BluetoothReceiver bluetoothReceiver;
-Logger logger;
+Print* logger = &Serial;
 Screen screen = Screen();
 RotaryEncoder encoder(2, 15, RotaryEncoder::LatchMode::TWO03);
  
@@ -43,7 +43,7 @@ int scrollDelay = 10;
 long int scrollTime;
 
 void avrc_metadata_callback(uint8_t attributeId, const uint8_t* buffer) {
-  Serial.printf("AVRC metadata rsp: attribute id 0x%x, %s\n", attributeId, buffer);
+  logger->printf("AVRC metadata rsp: attribute id 0x%x, %s\n", attributeId, buffer);
   String str = (char*)buffer;
 
   if(attributeId == ESP_AVRC_MD_ATTR_TITLE) {
@@ -59,8 +59,6 @@ void setup() {
   
   albumGoTime = millis();
   buttonGoTime = millis();
-
-  logger = Logger(&outputFunction);
   
   MomentaryButton button1(16, &callTheCallback, logger);
   MomentaryButton button2(16, &callTheCallback, logger);
@@ -70,7 +68,7 @@ void setup() {
 
   fmRadio = FMRadio(button1, button2, button3, logger);
   bluetoothReceiver = BluetoothReceiver(button1, button2, button3, logger, avrc_metadata_callback);
-  receiver = &fmRadio;
+  receiver = &bluetoothReceiver;
 }
 
 void loop() {
@@ -96,28 +94,23 @@ void loop() {
 
   int newPos = encoder.getPosition();
   if (pos != newPos) {
-    logger.log("pos:");
-    logger.log(newPos);
-    logger.log(" dir:");
+    logger->print("pos:");
+    logger->print(newPos);
+    logger->print(" dir:");
     int newDir = (int)(encoder.getDirection());
-    logger.log(newDir);
+    logger->println(newDir);
     if(newDir > 0) {
-      logger.log("Up");
+      logger->println("Up");
       receiver->volumeUp();
     } else {
-      logger.log("Down");
+      logger->println("Down");
       receiver->volumeDown();
     }
     pos = newPos;
   }
-  delay(10);
 
-}
-
-void outputFunction(const String &s) {
-  Serial.println(s);
 }
 
 void callTheCallback() {
-  logger.log("Button called back");
+  logger->println("Button called back!");
 }

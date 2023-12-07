@@ -3,7 +3,7 @@
 #include "Logger.h" 
 
 MomentaryButton::MomentaryButton() {}
-MomentaryButton::MomentaryButton(int pin, void (*pressedCallback)(void), Logger &logger):
+MomentaryButton::MomentaryButton(int pin, void (*pressedCallback)(void), Print *logger):
   _logger(logger)
  {
 	pinMode(pin, INPUT);
@@ -13,7 +13,7 @@ MomentaryButton::MomentaryButton(int pin, void (*pressedCallback)(void), Logger 
   _debounceDuration = 50;
   _lastTimeButtonStateChanged = 0;
 }
-void MomentaryButton::checkButton(){
+void MomentaryButton::checkButton() {
   if (millis() - _lastTimeButtonStateChanged > _debounceDuration) {
       byte buttonState = digitalRead(_pin);
       if (buttonState != _lastButtonState) {
@@ -21,7 +21,7 @@ void MomentaryButton::checkButton(){
       _lastButtonState = buttonState;
       if (buttonState == HIGH) {
         // do an action, for example print on Serial
-        _logger.debug("Button pressed");
+        _logger->println("Button pressed");
         _pressedCallback();
       }
     }

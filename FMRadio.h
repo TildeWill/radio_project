@@ -8,12 +8,12 @@
 class FMRadio: public Receiver {
 public:
   FMRadio();
-  FMRadio(MomentaryButton &seekBack, MomentaryButton &playPause, MomentaryButton &seekForward, Logger &logger);
+  FMRadio(MomentaryButton &seekBack, MomentaryButton &playPause, MomentaryButton &seekForward, Print *logger);
   void checkButtons();
   void volumeUp();
   void volumeDown();
 private:
-  Logger _logger;
+  Print *_logger;
   MomentaryButton _seekBack;
   MomentaryButton _playPause;
   MomentaryButton _seekForward;

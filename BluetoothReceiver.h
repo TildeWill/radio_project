@@ -9,12 +9,12 @@
 class BluetoothReceiver: public Receiver {
 public:
   BluetoothReceiver();
-  BluetoothReceiver(MomentaryButton &seekBack, MomentaryButton &playPause, MomentaryButton &seekForward, Logger &logger, void(*avrc_metadata_callback)(uint8_t, const uint8_t*));
+  BluetoothReceiver(MomentaryButton &seekBack, MomentaryButton &playPause, MomentaryButton &seekForward, Print *logger, void(*avrc_metadata_callback)(uint8_t, const uint8_t*));
   void checkButtons();
   void volumeUp();
   void volumeDown();
 private:
-  Logger _logger;
+  Print *_logger;
   MomentaryButton _seekBack;
   MomentaryButton _playPause;
   MomentaryButton _seekForward;
