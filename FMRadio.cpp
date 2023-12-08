@@ -13,7 +13,7 @@ void FMRadio::checkButtons() {
   _seekForward.checkButton();
 }
 
-void FMRadio::volumeUp() {
+void FMRadio::volumeUp(int amount) {
   
 }
-void FMRadio::volumeDown() {}
+void FMRadio::volumeDown(int amount) {}

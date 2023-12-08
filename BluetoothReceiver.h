@@ -11,8 +11,8 @@ public:
   BluetoothReceiver();
   BluetoothReceiver(MomentaryButton &seekBack, MomentaryButton &playPause, MomentaryButton &seekForward, Print *logger, void(*avrc_metadata_callback)(uint8_t, const uint8_t*));
   void checkButtons();
-  void volumeUp();
-  void volumeDown();
+  void volumeUp(int amount);
+  void volumeDown(int amount);
 private:
   Print *_logger;
   MomentaryButton _seekBack;

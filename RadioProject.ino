@@ -101,14 +101,13 @@ void loop() {
     logger->println(newDir);
     if(newDir > 0) {
       logger->println("Up");
-      receiver->volumeUp();
+      receiver->volumeUp(newPos - pos);
     } else {
       logger->println("Down");
-      receiver->volumeDown();
+      receiver->volumeDown(pos - newPos);
     }
     pos = newPos;
   }
-
 }
 
 void callTheCallback() {

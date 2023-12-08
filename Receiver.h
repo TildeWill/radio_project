@@ -4,8 +4,8 @@
 class Receiver {
    public:
       virtual void checkButtons();
-      virtual void volumeUp();
-      virtual void volumeDown();
+      virtual void volumeUp(int amount);
+      virtual void volumeDown(int amount);
 };
 
 #endif

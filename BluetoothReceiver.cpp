@@ -22,13 +22,13 @@ void BluetoothReceiver::checkButtons() {
   _seekForward.checkButton();
 }
 
-void BluetoothReceiver::volumeUp() {
+void BluetoothReceiver::volumeUp(int amount) {
   _logger->print("Current volume: ");
   _logger->println(a2dp_sink().get_volume());
-  a2dp_sink().set_volume(std::min(128, a2dp_sink().get_volume()+5));
+  a2dp_sink().set_volume(std::min(128, a2dp_sink().get_volume() + (amount*5)));
 }
-void BluetoothReceiver::volumeDown() {
-  a2dp_sink().set_volume(std::max(0, a2dp_sink().get_volume()-5));
+void BluetoothReceiver::volumeDown(int amount) {
+  a2dp_sink().set_volume(std::max(0, a2dp_sink().get_volume() - (amount*5)));
 }
 
 
